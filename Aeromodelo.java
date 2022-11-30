@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public abstract class Aeremodelo {
+public abstract class Aeromodelo implements GetId {
     
     private int id;
     private String marca;
     private String modelo; // variaveis da classe
 
-    public static ArrayList<Aeremodelo> aeromodelos = new ArrayList<Aeremodelo>(); // arraylist da classe
+    public static ArrayList<Aeromodelo> aeromodelos = new ArrayList<Aeromodelo>(); // arraylist da classe
         
         protected void Aeromodelo (int id, String marca, String modelo){ // construtor da classe
             this.id = id;
@@ -43,7 +43,20 @@ public abstract class Aeremodelo {
         @Override                    // para imprimir os objetos na tela
         public String toString(){
         return "Id: " + this.id 
-        + " | Marca: " + this.marca
-        + " | Modelo: " + this.modelo;
+        + "\n | Marca: " + this.marca
+        + "\n | Modelo: " + this.modelo;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null || !(obj instanceof Aeromodelo)) {
+                return false;
+            }
+            
+            Aeromodelo other = (Aeromodelo) obj;
+            if (this.id != other.id) {
+                return false;
+            }
+            return true;
+            }
 }

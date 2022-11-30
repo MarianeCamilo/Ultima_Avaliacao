@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Helicoptero {
+public abstract class Helicoptero extends Aeromodelo{
 
     private String cor;
     private int capacidade;
