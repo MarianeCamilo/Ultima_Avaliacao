@@ -1,7 +1,7 @@
 import java.rmi.server.RemoteRef;
 import java.util.ArrayList;
 
-public abstract class Jato {
+public abstract class Jato extends Aeromodelo {
     
     private String cor;
     private int velocidade;

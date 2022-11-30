@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Aviao {
+public abstract class Aviao extends Aeromodelo {
     
     private String prefixo;
     private int capacidade;
@@ -9,7 +9,7 @@ public abstract class Aviao {
 
     public static ArrayList<Aviao> avioes = new ArrayList<Aviao>();
 
-        protected void Aviao (String prefixo, int capacidade, int idCompanhia, Companhia companhia){
+        protected void Aviao (String prefixo, int capacidade, int idCompanhia, Companhia companhia) {
             this.prefixo = prefixo;
             this.capacidade = capacidade;
             this. idCompanhia = idCompanhia;
@@ -53,8 +53,23 @@ public abstract class Aviao {
         @Override                    // para imprimir os objetos na tela
         public String toString(){
         return "Prefixo: " + this.prefixo 
-        + " | Capacidade: " + this.capacidade
-        + " | idCompanhia: " + this.idCompanhia
-        + " | Companhia: " + this.companhia;
+        + "\n | Capacidade: " + this.capacidade
+        + "\n | idCompanhia: " + this.idCompanhia
+        + "\n | Companhia: " + this.companhia;
         }
+
+      /*  @Override
+        public boolean equals(Object obj) {
+            if (obj == null || !(obj instanceof Aviao)) {
+                return false;
+            }
+            
+            Aviao other = (Aviao) obj;
+            if (this.id != other.id) {
+                return false;
+            }
+            return true;
+            }
+
+            */
 }
