@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 
-public abstract class Helicoptero extends Aeromodelo{
+public class Helicoptero extends Aeromodelo{
 
     private String cor;
     private int capacidade;
 
-    ArrayList<Helicoptero> helicopteros = new ArrayList<Helicoptero>();
+    static ArrayList<Helicoptero> helicopteros = new ArrayList<Helicoptero>();
 
         protected Helicoptero(String cor, int capacidade){
+            super(GetId.getNextId(helicopteros), marca, modelo);
             this.cor = cor;
             this.capacidade = capacidade;
 
@@ -34,5 +35,19 @@ public abstract class Helicoptero extends Aeromodelo{
         public String toString(){
         return "Cor: " + this.cor 
         + " | Capacidade: " + this.capacidade;
+        }
+
+        public static Helicoptero getHelicopteroById(int id) throws Exception {
+            for (Helicoptero helicoptero : helicopteros) {
+                if (helicoptero.getId() == id) {
+                    return helicoptero;
+                }
+            }
+            throw new Exception("Helicoptero não encontrada");
+        }
+    
+        public static void excluir(int id) throws Exception {
+            Helicoptero helicoptero = getHelicopteroById(id);
+            helicopteros.remove(helicoptero);
         }
 }

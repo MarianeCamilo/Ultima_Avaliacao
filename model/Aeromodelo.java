@@ -3,11 +3,14 @@ import java.util.ArrayList;
 public abstract class Aeromodelo implements GetId {
     
     private int id;
-    private String marca;
-    private String modelo; // variaveis da classe
+    protected static String marca;
+    protected static String modelo; // variaveis da classe
 
     public static ArrayList<Aeromodelo> aeromodelos = new ArrayList<Aeromodelo>(); // arraylist da classe
         
+        public Aeromodelo(int nextId, String marca2, String modelo2) {
+    }
+
         protected void Aeromodelo (int id, String marca, String modelo){ // construtor da classe
             this.id = id;
             this.marca = marca;

@@ -60,4 +60,18 @@ public class Companhia implements GetId {
             return true;
             }
 
+            public static Companhia getCompanhiaById(int id) throws Exception {
+                for (Companhia companhia : companhias) {
+                    if (companhia.getId() == id) {
+                        return companhia;
+                    }
+                }
+                throw new Exception("Companhia não encontrada");
+            }
+        
+            public static void excluir(int id) throws Exception {
+                Companhia companhia = getCompanhiaById(id);
+                companhias.remove(companhia);
+            }
+
 }

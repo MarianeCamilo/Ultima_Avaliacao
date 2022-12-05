@@ -1,14 +1,15 @@
-import java.rmi.server.RemoteRef;
+//import java.rmi.server.RemoteRef;
 import java.util.ArrayList;
 
-public abstract class Jato extends Aeromodelo {
+public class Jato extends Aeromodelo {
     
     private String cor;
     private int velocidade;
 
-    ArrayList<Jato> jatos = new ArrayList<Jato>();
+    static ArrayList<Jato> jatos = new ArrayList<Jato>();
 
         protected Jato(String cor, int velocidade){
+            super(GetId.getNextId(jatos), marca, modelo);
             this.cor = cor;
             this.velocidade = velocidade;
 
@@ -36,4 +37,19 @@ public abstract class Jato extends Aeromodelo {
         return "Cor: " + this.cor 
         + " | Velocidade: " + this.velocidade;
         }
+
+        public static Jato getJatoById(int id) throws Exception {
+            for (Jato jato : jatos) {
+                if (jato.getId() == id) {
+                    return jato;
+                }
+            }
+            throw new Exception("Jato não encontrada");
+        }
+    
+        public static void excluir(int id) throws Exception {
+            Jato jato = getJatoById(id);
+            jatos.remove(jato);
+        }
+
 }

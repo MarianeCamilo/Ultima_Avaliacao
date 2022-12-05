@@ -150,4 +150,17 @@ public class Voo implements GetId {
             return true;
             }
 
+            public static Voo getVooById(int id) throws Exception {
+               for (Voo voo : voos) {
+                   if (voo.getId() == id) {
+                       return voo;
+                   }
+               }
+               throw new Exception("Voo não encontrada");
+           }
+       
+           public static void excluir(int id) throws Exception {
+               Voo voo = getVooById(id);
+               voos.remove(voo);
+           }
 }

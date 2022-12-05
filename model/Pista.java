@@ -49,4 +49,18 @@ public class Pista implements GetId {
             return true;
             }
 
+            public static Pista getPistaById(int id) throws Exception {
+                for (Pista pista : pistas) {
+                    if (pista.getId() == id) {
+                        return pista;
+                    }
+                }
+                throw new Exception("Pista não encontrada");
+            }
+        
+            public static void excluir(int id) throws Exception {
+                Pista pista = getPistaById(id);
+                pistas.remove(pista);
+            }
+
 }
