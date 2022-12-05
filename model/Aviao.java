@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.sql.Statement;
 import database.DAO;
 
-public abstract class Aviao extends Aeromodelo {
+public class Aviao extends Aeromodelo {
     
     private String prefixo;
     private int capacidade;
@@ -11,8 +11,11 @@ public abstract class Aviao extends Aeromodelo {
     private Companhia companhia;
 
     public static ArrayList<Aviao> avioes = new ArrayList<Aviao>();
+        
+        public Aviao(int nextId, String marca2, String modelo2, String prefixo, int capacidade, int idCompanhia, Companhia companhia) {
+            super(nextId, marca2, modelo2);
+            //TODO Auto-generated constructor stub
 
-        protected void Aviao (String prefixo, int capacidade, int idCompanhia, Companhia companhia) {
             this.prefixo = prefixo;
             this.capacidade = capacidade;
             this. idCompanhia = idCompanhia;
@@ -61,10 +64,25 @@ public abstract class Aviao extends Aeromodelo {
         + "\n | Companhia: " + this.companhia;
         }
 
+        public static Aviao getAviaoById(int id) throws Exception {
+            for (Aviao aviao : avioes) {
+                if (aviao.getId() == id) {
+                    return aviao;
+                }
+            }
+            throw new Exception("Avião não encontrada");
+        }
+    
+        public static void excluir(int id) throws Exception {
+            Aviao aviao = getAviaoById(id);
+            avioes.remove(aviao);
+        }
+
+
         public static void insertAviaoS(Aviao aviao) {
             try{
                 System.out.println("Conectando ao banco de dados");
-                Conexao con = DAO.getConexao();
+                Connection con = DAO.getConnection();
                 Statement stm = con.createStatement();
                 System.out.println("Banco de Dados conectado");
                 System.out.println("Inserindo dados no banco de dados");
@@ -73,7 +91,7 @@ public abstract class Aviao extends Aeromodelo {
                     + "('"+aviao.getMarca()+"', '"+aviao.getModelo()+"', '"+aviao.getCapacidade()+"', '"+aviao.getCompanhia().getId()+"')");
                 System.out.println("Dados inseridos com sucesso");
                 System.out.println(aviao); 
-                DAO.deleteConexao();
+                DAO.deleteConnection();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -97,7 +115,7 @@ public abstract class Aviao extends Aeromodelo {
         public static void updateAviaoS(Aviao aviao) throws Exception {
             try {
                 System.out.println("Conectando ao banco de dados");
-                Conexao con = DAO.getConexao();
+                Connection con = DAO.getConnection();
                 Statement stm = con.createStatement();
                 System.out.println("Banco de Dados conectado");
                 stm.execute("UPDATE aviao SET "
@@ -107,7 +125,7 @@ public abstract class Aviao extends Aeromodelo {
                     + ", id_companhia = '" + aviao.getCompanhia().getId()+ "'"
                     + " WHERE id = " + aviao.getId());
                     System.out.println("Dados atualizados com sucesso"); 
-                DAO.deleteConexao();
+                DAO.deleteConnection();
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
@@ -118,7 +136,7 @@ public abstract class Aviao extends Aeromodelo {
                 System.out.println("Informe o ID do aviao: ");
                 int id = scanner.nextInt();
                 System.out.println("Conectando ao banco de dados");
-                Conexao con = DAO.getConexao();
+                Connection con = DAO.getConnection();
                 Statement stm = con.createStatement();
                 System.out.println("Banco de Dados conectado");
     
@@ -129,7 +147,7 @@ public abstract class Aviao extends Aeromodelo {
                 }
                 
                 Aviao aviao = new Aviao(rs);
-                DAO.deleteConexao();
+                DAO.deleteConnection();
                 return aviao;
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
@@ -139,7 +157,7 @@ public abstract class Aviao extends Aeromodelo {
         public static void deleteAviaoPS(Aviao aviao) {
             try {
                 System.out.println("Conectando ao banco de dados");
-                Conexao con = DAO.getConexao();
+                Connection con = DAO.getConnection();
                 System.out.println("Banco de Dados conectado");
                 System.out.println("Deletando Dados do banco");
                 PreparedStatement pStm = con.prepareStatement("DELETE FROM aviao WHERE id = ?");
@@ -148,11 +166,9 @@ public abstract class Aviao extends Aeromodelo {
                 if(pStm.executeUpdate() <= 0) {
                     System.out.println("Falha na execução.");
                 }
-                DAO.deleteConexao();
+                DAO.deleteConnection();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
 }
-
-

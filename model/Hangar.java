@@ -56,4 +56,18 @@ public class Hangar implements GetId {
         + " | Avião: " + this.avioes;
         }
 
+        public static Hangar getHangarById(int id) throws Exception {
+            for (Hangar hangar : hangares) {
+                if (hangar.getId() == id) {
+                    return hangar;
+                }
+            }
+            throw new Exception("Companhia não encontrada");
+        }
+    
+        public static void excluir(int id) throws Exception {
+            Hangar hangar = getHangarById(id);
+            hangares.remove(hangar);
+        }
+
 }
