@@ -38,7 +38,7 @@ public class Aeroporto{
 
             switch(escolha) {
                 case 1:
-                    System.out.println("Listar Aeronave");
+                    System.out.println("Listar Aeromodelo");
                     System.out.println("-------------------------");
                     listarAviao();
                     listarHelicoptero();
@@ -66,7 +66,17 @@ public class Aeroporto{
                         default:
                             break;
 
-                case 3:
+                case 1:
+                    System.out.println("ALTERAR Aeromodelo");
+                    System.out.println("-------------------------");
+                    listarAviao();
+                    listarHelicoptero();
+                    listarJato();
+                    }
+                    break;
+
+
+                case 4:
                     System.out.println("Excluir Aeromodelo");
                     System.out.println("-------------------------");
                     char tipoExcluir = scanner.next().charAt(0);
@@ -87,27 +97,64 @@ public class Aeroporto{
                     }
                     break;
 
+                case 5:
+                    System.out.println("Listar Companhia");
+                    System.out.println("-------------------------");
+                    listarCompanhia();
+                    
+                    break;
 
-
-
+                case 6:
+                    System.out.println("Incluir Companhia");
+                    System.out.println("-------------------------");
+                    char tipo = scanner.next().charAt(0);
+                            incluirAviao(scanner);
+                            break;
 
 
 
             } while (escolha != 0);
             scanner.close();
+        
+
+        }
+}
+
+    private static void excluirJato(Scanner scanner) {
+        try {
+            System.out.println("ID Jato");
+            int id = scanner.nextInt();
+            Jato.excluir(id);
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    private static void excluirJato(Scanner scanner) {
-    }
-
     private static void excluirHelicoptero(Scanner scanner) {
+        try {
+            System.out.println("id helicoptero");
+            int id = scanner.nextInt();
+            Helicoptero.excluir(id);
+            System.out.println("excluido");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void excluirAviao(Scanner scanner) {
+        try {
+            System.out.println("id avião");
+            int id = scanner.nextInt();
+            Helicoptero.excluir(id);
+            System.out.println("excluido");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void listarJato() {
+
     }
 
     private static void listarHelicoptero() {
@@ -125,4 +172,6 @@ public class Aeroporto{
     private static void incluirAviao(Scanner scanner) {
     }
 
-}
+    private static void listarCompanhia() {
+    }
+    
