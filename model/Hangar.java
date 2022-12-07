@@ -70,4 +70,8 @@ public class Hangar implements GetId {
             hangares.remove(hangar);
         }
 
+        public static Hangar[] getHangares() {
+            return null;
+        }
+
 }

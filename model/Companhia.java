@@ -74,4 +74,12 @@ public class Companhia implements GetId {
                 companhias.remove(companhia);
             }
 
+            public static Companhia[] getCompanhias() {
+                return null;
+            }
+
+            public static Companhia next() {
+                return null;
+            }
+
 }

@@ -5,18 +5,17 @@ import database.DAO;
 
 public class Aviao extends Aeromodelo {
     
-    private String prefixo;
+    private Prefixo<Character, Integer> numeros;
     private int capacidade;
     private int idCompanhia;
     private Companhia companhia;
 
     public static ArrayList<Aviao> avioes = new ArrayList<Aviao>();
         
-        public Aviao(int nextId, String marca2, String modelo2, String prefixo, int capacidade, int idCompanhia, Companhia companhia) {
+        public Aviao(char letras, int nextId, String marca2, String modelo2, String prefixo, int capacidade, int idCompanhia, Companhia companhia) throws Exception {
             super(nextId, marca2, modelo2);
-            //TODO Auto-generated constructor stub
-
-            this.prefixo = prefixo;
+            //Prefixo<Character,Integer> numero = new Prefixo<>(letras, numeros);
+            verificaNumero(numeros);
             this.capacidade = capacidade;
             this. idCompanhia = idCompanhia;
             this.companhia = companhia;
@@ -24,12 +23,23 @@ public class Aviao extends Aeromodelo {
             avioes.add(this);
         }
 
-        public String getPrefixo(){
-            return this.prefixo;
+        private void verificaNumero(Prefixo<Character, Integer> numeros2) throws Exception{
+                for (Aviao aviao : avioes) {
+                    if (aviao.getNumero().equals(numeros)) {
+                        throw new Exception("!");
+                    }
+                }
+        
+                return;
+            }
+        
+
+        public Prefixo<Character, Integer> getNumero() {
+            return numeros;
         }
 
-        public void setPrefixo(String prefixo){
-            this.prefixo = prefixo;
+        public void setNumero(Prefixo<Character, Integer> numero) {
+            this.numeros = numero;
         }
 
         public int getCapacidade(){
@@ -58,8 +68,7 @@ public class Aviao extends Aeromodelo {
 
         @Override                    // para imprimir os objetos na tela
         public String toString(){
-        return "Prefixo: " + this.prefixo 
-        + "\n | Capacidade: " + this.capacidade
+        return "\n | Capacidade: " + this.capacidade
         + "\n | idCompanhia: " + this.idCompanhia
         + "\n | Companhia: " + this.companhia;
         }
@@ -79,96 +88,14 @@ public class Aviao extends Aeromodelo {
         }
 
 
-        public static void insertAviaoS(Aviao aviao) {
-            try{
-                System.out.println("Conectando ao banco de dados");
-                Connection con = DAO.getConnection();
-                Statement stm = con.createStatement();
-                System.out.println("Banco de Dados conectado");
-                System.out.println("Inserindo dados no banco de dados");
-                stm.execute("Insert into aviao "
-                    + "(marca, modelo, capacidade,companhia) VALUES "
-                    + "('"+aviao.getMarca()+"', '"+aviao.getModelo()+"', '"+aviao.getCapacidade()+"', '"+aviao.getCompanhia().getId()+"')");
-                System.out.println("Dados inseridos com sucesso");
-                System.out.println(aviao); 
-                DAO.deleteConnection();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+        public static Aviao[] getAvioes() {
+            return null;
         }
-    
-        public static Aviao getAviaoUpdate(Scanner scanner) throws Exception {
-            try {
-                Aviao aviao = getAviao(scanner);
-                System.out.println("Informe a marca do aviao");
-                String marca = scanner.next();
-                System.out.println("Informe o modelo do avião");
-                String modelo = scanner.next();
-                System.out.println("Informe a capacidade do avião");
-                String capacidade = scanner.next();
-                return aviao;
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
+
+
+        public static int length() {
+            return 0;
         }
-    
-        public static void updateAviaoS(Aviao aviao) throws Exception {
-            try {
-                System.out.println("Conectando ao banco de dados");
-                Connection con = DAO.getConnection();
-                Statement stm = con.createStatement();
-                System.out.println("Banco de Dados conectado");
-                stm.execute("UPDATE aviao SET "
-                    + " marca = '" + aviao.getMarca() + "'"
-                    + ", modelo = '" + aviao.getModelo() + "'"
-                    + ", capacidade = '" + aviao.getCapacidade() + "'"
-                    + ", id_companhia = '" + aviao.getCompanhia().getId()+ "'"
-                    + " WHERE id = " + aviao.getId());
-                    System.out.println("Dados atualizados com sucesso"); 
-                DAO.deleteConnection();
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
-        }
-    
-        public static Aviao getAviao(Scanner scanner) throws Exception { 
-            try {
-                System.out.println("Informe o ID do aviao: ");
-                int id = scanner.nextInt();
-                System.out.println("Conectando ao banco de dados");
-                Connection con = DAO.getConnection();
-                Statement stm = con.createStatement();
-                System.out.println("Banco de Dados conectado");
-    
-                ResultSet rs = stm.executeQuery("SELECT * FROM aviao WHERE id = " + id);
-                
-                if(!rs.next()) {
-                    throw new Exception("Id inválido");
-                }
-                
-                Aviao aviao = new Aviao(rs);
-                DAO.deleteConnection();
-                return aviao;
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
-        }
-    
-        public static void deleteAviaoPS(Aviao aviao) {
-            try {
-                System.out.println("Conectando ao banco de dados");
-                Connection con = DAO.getConnection();
-                System.out.println("Banco de Dados conectado");
-                System.out.println("Deletando Dados do banco");
-                PreparedStatement pStm = con.prepareStatement("DELETE FROM aviao WHERE id = ?");
-                pStm.setInt(1, aviao.getId());
-                System.out.println("Dados deletado com sucesso");  
-                if(pStm.executeUpdate() <= 0) {
-                    System.out.println("Falha na execução.");
-                }
-                DAO.deleteConnection();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+
+
 }

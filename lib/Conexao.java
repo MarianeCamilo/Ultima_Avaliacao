@@ -2,6 +2,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import database.DAO;
+import database.Usuario;
+
 public class Conexao {
     public static void main(String[] args) {
         try{
@@ -17,10 +20,8 @@ public class Conexao {
             stmt.setString(3, usuario.getPassword());
             stmt.execute();*/
 
-            /* SELECT ALL USERS */
             imprimirUsuarios(conexao);
 
-            /* DELETE id = 2 */
             PreparedStatement stmt = conexao.prepareStatement(
                 "DELETE FROM usuario WHERE id = ?;"
             );
@@ -28,7 +29,6 @@ public class Conexao {
             stmt.execute();
             imprimirUsuarios(conexao);
 
-            /* UPDATE id = 1 */
             stmt = conexao.prepareStatement(
                 "UPDATE usuario SET user_name = ?, name = ?, password = ? WHERE id = ?;"
             );

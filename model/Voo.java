@@ -23,7 +23,9 @@ public class Voo implements GetId {
 
     public static ArrayList<Voo> voos = new ArrayList<Voo>();
 
-        protected void Voo(int id, String numero, String data, String hora, String origem, String destino, String piloto,
+
+
+      public void Voo(int id, String numero, String data, String hora, String origem, String destino, String piloto,
          String copiloto, String observacao, int idPista, Pista pista, int idAviao, Aviao avioes, int idHelicoptero, Helicoptero helicoptero, int idJato, Jato jatos){
             this.id = id;
             this.numero = numero;
@@ -163,4 +165,8 @@ public class Voo implements GetId {
                Voo voo = getVooById(id);
                voos.remove(voo);
            }
+
+        public static Voo[] getVoos() {
+            return null;
+        }
 }
