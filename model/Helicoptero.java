@@ -7,7 +7,7 @@ public class Helicoptero extends Aeromodelo{
 
     static ArrayList<Helicoptero> helicopteros = new ArrayList<Helicoptero>();
 
-        protected Helicoptero(String cor, int capacidade){
+        protected Helicoptero(){
             super(GetId.getNextId(helicopteros), marca, modelo);
             this.cor = cor;
             this.capacidade = capacidade;
@@ -49,5 +49,9 @@ public class Helicoptero extends Aeromodelo{
         public static void excluir(int id) throws Exception {
             Helicoptero helicoptero = getHelicopteroById(id);
             helicopteros.remove(helicoptero);
+        }
+
+        public static Helicoptero[] getHelicopteros() {
+            return null;
         }
 }

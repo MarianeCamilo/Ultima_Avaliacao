@@ -63,4 +63,8 @@ public class Pista implements GetId {
                 pistas.remove(pista);
             }
 
+            public static Pista[] getPistas() {
+                return null;
+            }
+
 }

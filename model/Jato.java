@@ -8,7 +8,7 @@ public class Jato extends Aeromodelo {
 
     static ArrayList<Jato> jatos = new ArrayList<Jato>();
 
-        protected Jato(String cor, int velocidade){
+        protected Jato(){
             super(GetId.getNextId(jatos), marca, modelo);
             this.cor = cor;
             this.velocidade = velocidade;
@@ -50,6 +50,10 @@ public class Jato extends Aeromodelo {
         public static void excluir(int id) throws Exception {
             Jato jato = getJatoById(id);
             jatos.remove(jato);
+        }
+
+        public static Jato[] getJatos() {
+            return null;
         }
 
 }
